@@ -1,6 +1,6 @@
 generator client {
     provider = "prisma-client-js"
-    output   = "../app/generated/prisma"
+    
 }
 
 datasource db {
@@ -62,7 +62,7 @@ model ProductItem {
     size      Int?
     pizzaType Int?
 
-    customImageUrl String?
+    customImageUrl String? // Поле для хранения изображения кастомного дизайна
 
     cartItems CartItem[]
 
