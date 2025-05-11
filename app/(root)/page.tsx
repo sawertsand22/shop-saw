@@ -5,9 +5,12 @@ import {
   TopBar,
   ProductsGroupList,
   Stories,
+  DesignEditor,
 } from '@/shared/components/shared';
 import { Suspense } from 'react';
 import { GetSearchParams, findPizzas } from '@/shared/lib/find-pizzas';
+
+ 
 
 export default async function Home({ searchParams }: { searchParams: GetSearchParams }) {
   const categories = await findPizzas(searchParams);
@@ -15,7 +18,7 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
   return (
     <>
       <Container className="mt-10">
-        <Title text="Все пиццы" size="lg" className="font-extrabold" />
+        <Title text="Все футболки" size="lg" className="font-extrabold" />
       </Container>
 
       <TopBar categories={categories.filter((category) => category.products.length > 0)} />
@@ -49,6 +52,8 @@ export default async function Home({ searchParams }: { searchParams: GetSearchPa
           </div>
         </div>
       </Container>
+
+      
     </>
   );
 }

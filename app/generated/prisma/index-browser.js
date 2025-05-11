@@ -156,6 +156,7 @@ exports.Prisma.ProductItemScalarFieldEnum = {
   price: 'price',
   size: 'size',
   pizzaType: 'pizzaType',
+  customImageUrl: 'customImageUrl',
   productId: 'productId'
 };
 

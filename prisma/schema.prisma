@@ -62,6 +62,8 @@ model ProductItem {
     size      Int?
     pizzaType Int?
 
+    customImageUrl String?
+
     cartItems CartItem[]
 
     product   Product @relation(fields: [productId], references: [id])
@@ -110,6 +112,8 @@ model CartItem {
     quantity Int @default(1)
 
     ingredients Ingredient[] 
+
+    
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

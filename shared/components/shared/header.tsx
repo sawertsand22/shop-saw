@@ -11,7 +11,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import toast from 'react-hot-toast';
 import { ProfileButton } from './profile-button';
 import { AuthModal } from './modals';
-
+import { Button } from '@/shared/components/ui';
 interface Props {
   hasSearch?: boolean;
   hasCart?: boolean;
@@ -72,7 +72,18 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
           <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
 
           {hasCart && <CartButton />}
+
+          <Button variant="secondary" className="text-base font-bold"
+          onClick={(e) => {
+    e.preventDefault(); // чтобы не сработал <Link>
+    router.push('/design-editor');
+                           }}>
+            Добавить
+  </Button>
         </div>
+
+        
+  
       </Container>
     </header>
   );

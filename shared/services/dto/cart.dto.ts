@@ -12,6 +12,8 @@ export interface CartDTO extends Cart {
 }
 
 export interface CreateCartItemValues {
-  productItemId: number;
+  productItemId?: number;
   ingredients?: number[];
+  customDesignUrl?: string; // Кастомный дизайн (новое поле)
+  price?: number; 
 }

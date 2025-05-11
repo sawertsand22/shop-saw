@@ -5009,6 +5009,7 @@ export namespace Prisma {
     price: number | null
     size: number | null
     pizzaType: number | null
+    customImageUrl: string | null
     productId: number | null
   }
 
@@ -5017,6 +5018,7 @@ export namespace Prisma {
     price: number | null
     size: number | null
     pizzaType: number | null
+    customImageUrl: string | null
     productId: number | null
   }
 
@@ -5025,6 +5027,7 @@ export namespace Prisma {
     price: number
     size: number
     pizzaType: number
+    customImageUrl: number
     productId: number
     _all: number
   }
@@ -5051,6 +5054,7 @@ export namespace Prisma {
     price?: true
     size?: true
     pizzaType?: true
+    customImageUrl?: true
     productId?: true
   }
 
@@ -5059,6 +5063,7 @@ export namespace Prisma {
     price?: true
     size?: true
     pizzaType?: true
+    customImageUrl?: true
     productId?: true
   }
 
@@ -5067,6 +5072,7 @@ export namespace Prisma {
     price?: true
     size?: true
     pizzaType?: true
+    customImageUrl?: true
     productId?: true
     _all?: true
   }
@@ -5162,6 +5168,7 @@ export namespace Prisma {
     price: number
     size: number | null
     pizzaType: number | null
+    customImageUrl: string | null
     productId: number
     _count: ProductItemCountAggregateOutputType | null
     _avg: ProductItemAvgAggregateOutputType | null
@@ -5189,6 +5196,7 @@ export namespace Prisma {
     price?: boolean
     size?: boolean
     pizzaType?: boolean
+    customImageUrl?: boolean
     productId?: boolean
     cartItems?: boolean | ProductItem$cartItemsArgs<ExtArgs>
     product?: boolean | ProductDefaultArgs<ExtArgs>
@@ -5200,6 +5208,7 @@ export namespace Prisma {
     price?: boolean
     size?: boolean
     pizzaType?: boolean
+    customImageUrl?: boolean
     productId?: boolean
     product?: boolean | ProductDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["productItem"]>
@@ -5209,6 +5218,7 @@ export namespace Prisma {
     price?: boolean
     size?: boolean
     pizzaType?: boolean
+    customImageUrl?: boolean
     productId?: boolean
   }
 
@@ -5232,6 +5242,7 @@ export namespace Prisma {
       price: number
       size: number | null
       pizzaType: number | null
+      customImageUrl: string | null
       productId: number
     }, ExtArgs["result"]["productItem"]>
     composites: {}
@@ -5632,6 +5643,7 @@ export namespace Prisma {
     readonly price: FieldRef<"ProductItem", 'Int'>
     readonly size: FieldRef<"ProductItem", 'Int'>
     readonly pizzaType: FieldRef<"ProductItem", 'Int'>
+    readonly customImageUrl: FieldRef<"ProductItem", 'String'>
     readonly productId: FieldRef<"ProductItem", 'Int'>
   }
     
@@ -12126,6 +12138,7 @@ export namespace Prisma {
     price: 'price',
     size: 'size',
     pizzaType: 'pizzaType',
+    customImageUrl: 'customImageUrl',
     productId: 'productId'
   };
 
@@ -12559,6 +12572,7 @@ export namespace Prisma {
     price?: IntFilter<"ProductItem"> | number
     size?: IntNullableFilter<"ProductItem"> | number | null
     pizzaType?: IntNullableFilter<"ProductItem"> | number | null
+    customImageUrl?: StringNullableFilter<"ProductItem"> | string | null
     productId?: IntFilter<"ProductItem"> | number
     cartItems?: CartItemListRelationFilter
     product?: XOR<ProductRelationFilter, ProductWhereInput>
@@ -12569,6 +12583,7 @@ export namespace Prisma {
     price?: SortOrder
     size?: SortOrderInput | SortOrder
     pizzaType?: SortOrderInput | SortOrder
+    customImageUrl?: SortOrderInput | SortOrder
     productId?: SortOrder
     cartItems?: CartItemOrderByRelationAggregateInput
     product?: ProductOrderByWithRelationInput
@@ -12582,6 +12597,7 @@ export namespace Prisma {
     price?: IntFilter<"ProductItem"> | number
     size?: IntNullableFilter<"ProductItem"> | number | null
     pizzaType?: IntNullableFilter<"ProductItem"> | number | null
+    customImageUrl?: StringNullableFilter<"ProductItem"> | string | null
     productId?: IntFilter<"ProductItem"> | number
     cartItems?: CartItemListRelationFilter
     product?: XOR<ProductRelationFilter, ProductWhereInput>
@@ -12592,6 +12608,7 @@ export namespace Prisma {
     price?: SortOrder
     size?: SortOrderInput | SortOrder
     pizzaType?: SortOrderInput | SortOrder
+    customImageUrl?: SortOrderInput | SortOrder
     productId?: SortOrder
     _count?: ProductItemCountOrderByAggregateInput
     _avg?: ProductItemAvgOrderByAggregateInput
@@ -12608,6 +12625,7 @@ export namespace Prisma {
     price?: IntWithAggregatesFilter<"ProductItem"> | number
     size?: IntNullableWithAggregatesFilter<"ProductItem"> | number | null
     pizzaType?: IntNullableWithAggregatesFilter<"ProductItem"> | number | null
+    customImageUrl?: StringNullableWithAggregatesFilter<"ProductItem"> | string | null
     productId?: IntWithAggregatesFilter<"ProductItem"> | number
   }
 
@@ -13227,6 +13245,7 @@ export namespace Prisma {
     price: number
     size?: number | null
     pizzaType?: number | null
+    customImageUrl?: string | null
     cartItems?: CartItemCreateNestedManyWithoutProductItemInput
     product: ProductCreateNestedOneWithoutItemsInput
   }
@@ -13236,6 +13255,7 @@ export namespace Prisma {
     price: number
     size?: number | null
     pizzaType?: number | null
+    customImageUrl?: string | null
     productId: number
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductItemInput
   }
@@ -13244,6 +13264,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     size?: NullableIntFieldUpdateOperationsInput | number | null
     pizzaType?: NullableIntFieldUpdateOperationsInput | number | null
+    customImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     cartItems?: CartItemUpdateManyWithoutProductItemNestedInput
     product?: ProductUpdateOneRequiredWithoutItemsNestedInput
   }
@@ -13253,6 +13274,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     size?: NullableIntFieldUpdateOperationsInput | number | null
     pizzaType?: NullableIntFieldUpdateOperationsInput | number | null
+    customImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     productId?: IntFieldUpdateOperationsInput | number
     cartItems?: CartItemUncheckedUpdateManyWithoutProductItemNestedInput
   }
@@ -13262,6 +13284,7 @@ export namespace Prisma {
     price: number
     size?: number | null
     pizzaType?: number | null
+    customImageUrl?: string | null
     productId: number
   }
 
@@ -13269,6 +13292,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     size?: NullableIntFieldUpdateOperationsInput | number | null
     pizzaType?: NullableIntFieldUpdateOperationsInput | number | null
+    customImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type ProductItemUncheckedUpdateManyInput = {
@@ -13276,6 +13300,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     size?: NullableIntFieldUpdateOperationsInput | number | null
     pizzaType?: NullableIntFieldUpdateOperationsInput | number | null
+    customImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     productId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -14034,6 +14059,7 @@ export namespace Prisma {
     price?: SortOrder
     size?: SortOrder
     pizzaType?: SortOrder
+    customImageUrl?: SortOrder
     productId?: SortOrder
   }
 
@@ -14050,6 +14076,7 @@ export namespace Prisma {
     price?: SortOrder
     size?: SortOrder
     pizzaType?: SortOrder
+    customImageUrl?: SortOrder
     productId?: SortOrder
   }
 
@@ -14058,6 +14085,7 @@ export namespace Prisma {
     price?: SortOrder
     size?: SortOrder
     pizzaType?: SortOrder
+    customImageUrl?: SortOrder
     productId?: SortOrder
   }
 
@@ -15448,6 +15476,7 @@ export namespace Prisma {
     price: number
     size?: number | null
     pizzaType?: number | null
+    customImageUrl?: string | null
     cartItems?: CartItemCreateNestedManyWithoutProductItemInput
   }
 
@@ -15456,6 +15485,7 @@ export namespace Prisma {
     price: number
     size?: number | null
     pizzaType?: number | null
+    customImageUrl?: string | null
     cartItems?: CartItemUncheckedCreateNestedManyWithoutProductItemInput
   }
 
@@ -15539,6 +15569,7 @@ export namespace Prisma {
     price?: IntFilter<"ProductItem"> | number
     size?: IntNullableFilter<"ProductItem"> | number | null
     pizzaType?: IntNullableFilter<"ProductItem"> | number | null
+    customImageUrl?: StringNullableFilter<"ProductItem"> | string | null
     productId?: IntFilter<"ProductItem"> | number
   }
 
@@ -15892,6 +15923,7 @@ export namespace Prisma {
     price: number
     size?: number | null
     pizzaType?: number | null
+    customImageUrl?: string | null
     product: ProductCreateNestedOneWithoutItemsInput
   }
 
@@ -15900,6 +15932,7 @@ export namespace Prisma {
     price: number
     size?: number | null
     pizzaType?: number | null
+    customImageUrl?: string | null
     productId: number
   }
 
@@ -15975,6 +16008,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     size?: NullableIntFieldUpdateOperationsInput | number | null
     pizzaType?: NullableIntFieldUpdateOperationsInput | number | null
+    customImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     product?: ProductUpdateOneRequiredWithoutItemsNestedInput
   }
 
@@ -15983,6 +16017,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     size?: NullableIntFieldUpdateOperationsInput | number | null
     pizzaType?: NullableIntFieldUpdateOperationsInput | number | null
+    customImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     productId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -16260,6 +16295,7 @@ export namespace Prisma {
     price: number
     size?: number | null
     pizzaType?: number | null
+    customImageUrl?: string | null
   }
 
   export type IngredientUpdateWithoutProductsInput = {
@@ -16294,6 +16330,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     size?: NullableIntFieldUpdateOperationsInput | number | null
     pizzaType?: NullableIntFieldUpdateOperationsInput | number | null
+    customImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     cartItems?: CartItemUpdateManyWithoutProductItemNestedInput
   }
 
@@ -16302,6 +16339,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     size?: NullableIntFieldUpdateOperationsInput | number | null
     pizzaType?: NullableIntFieldUpdateOperationsInput | number | null
+    customImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     cartItems?: CartItemUncheckedUpdateManyWithoutProductItemNestedInput
   }
 
@@ -16310,6 +16348,7 @@ export namespace Prisma {
     price?: IntFieldUpdateOperationsInput | number
     size?: NullableIntFieldUpdateOperationsInput | number | null
     pizzaType?: NullableIntFieldUpdateOperationsInput | number | null
+    customImageUrl?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type CartItemCreateManyProductItemInput = {
