@@ -64,6 +64,8 @@ model ProductItem {
 
     customImageUrl String? // Поле для хранения изображения кастомного дизайна
 
+    stock      Int     @default(3) //обавляем максимальное количество
+
     cartItems CartItem[]
 
     product   Product @relation(fields: [productId], references: [id])

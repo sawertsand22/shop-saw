@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
     const data = (await req.json()) as CreateCartItemValues;
     //console.log("== Данные запроса:", data);
 
+
     // ✅ Проверяем: это кастомный дизайн?
     if (data.customDesignUrl) {
       //console.log("== Добавление кастомного дизайна ==");
@@ -101,6 +102,7 @@ export async function POST(req: NextRequest) {
           productId: customProduct.id,
           size: null,
           pizzaType: null,
+          stock: 5,
         },
       });
 

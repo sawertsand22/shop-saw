@@ -11,7 +11,7 @@ export interface GetSearchParams {
 }
 
 const DEFAULT_MIN_PRICE = 0;
-const DEFAULT_MAX_PRICE = 1000;
+const DEFAULT_MAX_PRICE = 10000;
 
 export const findPizzas = async (params: GetSearchParams) => {
   const sizes = params.sizes?.split(',').map(Number);
@@ -22,12 +22,23 @@ export const findPizzas = async (params: GetSearchParams) => {
   const maxPrice = Number(params.priceTo) || DEFAULT_MAX_PRICE;
 
   const categories = await prisma.category.findMany({
+    where: {
+      name: {
+        not: "Кастомные товары", // Исключаем категорию "Кастомный дизайн"
+      },
+    },
     include: {
       products: {
         orderBy: {
           id: 'desc',
         },
         where: {
+           name: params.query
+            ? {
+                contains: params.query,
+                mode: 'insensitive',
+              }
+            : undefined,
           ingredients: ingredientsIdArr
             ? {
                 some: {
