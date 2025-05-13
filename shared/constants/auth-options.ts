@@ -55,9 +55,9 @@ export const authOptions: AuthOptions = {
           return null;
         }
 
-        if (!findUser.verified) {
-          return null;
-        }
+        // if (!findUser.verified) {
+        //   return null;
+        // }
 
         return {
           id: findUser.id,
