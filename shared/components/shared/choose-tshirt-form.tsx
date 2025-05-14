@@ -3,7 +3,7 @@
 import React from 'react';
 import { Ingredient, ProductItem } from '@prisma/client';
 
-import { PizzaImage } from './pizza-image';
+import { TshirtImage } from './tshirt-image';
 import { Title } from './title';
 import { Button } from '../ui';
 import { GroupVariants } from './group-variants';
@@ -62,7 +62,7 @@ export const ChooseTshirtForm: React.FC<Props> = ({
 
   return (
     <div className={cn(className, 'flex flex-1')}>
-      <PizzaImage imageUrl={imageUrl} size={size} />
+      <TshirtImage imageUrl={imageUrl} size={size} />
 
       <div className="w-[490px] bg-[#f7f6f5] p-7">
         <Title text={name} size="md" className="font-extrabold mb-1" />

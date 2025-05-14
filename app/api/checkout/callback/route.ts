@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     if (isSucceeded) {
       await sendEmail(
         order.email,
-        'Next Pizza / Ваш заказ успешно оформлен 🎉',
+        'Shop Sawert / Ваш заказ успешно оформлен 🎉',
         OrderSuccessTemplate({ orderId: order.id, items }),
       );
     } else {
