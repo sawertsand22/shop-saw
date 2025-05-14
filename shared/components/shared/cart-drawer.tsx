@@ -50,7 +50,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
               <Image src="/assets/images/empty-box.png" alt="Empty cart" width={120} height={120} />
               <Title size="sm" text="Корзина пустая" className="text-center font-bold my-2" />
               <p className="text-center text-neutral-500 mb-5">
-                Добавьте хотя бы одну пиццу, чтобы совершить заказ
+                Добавьте хотя бы одну футболку, чтобы совершить заказ
               </p>
 
               <SheetClose>
