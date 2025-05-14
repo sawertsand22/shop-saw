@@ -10,7 +10,7 @@ export const getCartItemDetails = (
 
   if (tshirtSize && tshirtType) {
     const typeName = mapTshirtType[tshirtType];
-    details.push(`${typeName} ${tshirtSize} см`);
+    details.push(`${typeName} ${tshirtSize} `);
   }
 
   if (ingredients) {

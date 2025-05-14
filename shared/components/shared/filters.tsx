@@ -31,14 +31,14 @@ export const Filters: React.FC<Props> = ({ className }) => {
 
       {/* Верхние чекбоксы */}
       <CheckboxFiltersGroup
-        title="Тип теста"
+        title="Тип футболки"
         name="tshirtTypes"
         className="mb-5"
         onClickCheckbox={filters.setPizzaTypes}
         selected={filters.tshirtTypes}
         items={[
-          { text: 'Тонкое', value: '1' },
-          { text: 'Традиционное', value: '2' },
+          { text: 'Классическая', value: '1' },
+          { text: 'Оверсайз', value: '2' },
         ]}
       />
 
@@ -49,9 +49,17 @@ export const Filters: React.FC<Props> = ({ className }) => {
         onClickCheckbox={filters.setSizes}
         selected={filters.sizes}
         items={[
-          { text: '20 см', value: '20' },
-          { text: '30 см', value: '30' },
-          { text: '40 см', value: '40' },
+          { text: 'S (44-46)', value: '44' },
+          { text: 'M (46-48)', value: '46' },
+          { text: 'L (48-50)', value: '48' },
+          { text: 'XL (50-52)', value: '50' },
+          { text: '2XL (52-54)', value: '52' },
+          { text: '3XL (54-56)', value: '54' },
+          { text: '4XL (58-60)', value: '58' },
+
+
+
+
         ]}
       />
 
@@ -86,7 +94,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
         />
       </div>
 
-      <CheckboxFiltersGroup
+      {/* <CheckboxFiltersGroup
         title="Ингредиенты"
         name="ingredients"
         className="mt-5"
@@ -96,7 +104,7 @@ export const Filters: React.FC<Props> = ({ className }) => {
         loading={loading}
         onClickCheckbox={filters.setSelectedIngredients}
         selected={filters.selectedIngredients}
-      />
+      /> */}
     </div>
   );
 };

@@ -51,7 +51,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
         {/* Левая часть */}
         <Link href="/">
           <div className="flex items-center gap-4">
-            <Image src="/logo.png" alt="Logo" width={35} height={35} />
+            <Image src="/t-shirt.png" alt="Logo" width={35} height={35} />
             <div>
               <h1 className="text-2xl uppercase font-black">Sawert Shop</h1>
               <p className="text-sm text-gray-400 leading-3">лучшая одежда</p>

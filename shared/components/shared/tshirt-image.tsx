@@ -13,9 +13,8 @@ export const TshirtImage: React.FC<Props> = ({ imageUrl, size, className }) => {
       <img
         src={imageUrl}
         alt="Logo"
-        className={cn('relative left-2 top-2 transition-all z-10 duration-300', {
-          'w-[500px] h-[500px]': size === 48,
-        })}
+        className="relative left-2 top-2 z-10 w-[500px] h-[500px] transition-all duration-300"
+
       />
 
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 border-dashed border-2 rounded-full border-gray-200 w-[450px] h-[450px]" />

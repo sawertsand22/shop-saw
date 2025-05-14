@@ -1,6 +1,6 @@
 {
   "name": "next-shop",
-  "version": "0.9.7",
+  "version": "0.9.9",
   "private": true,
   "scripts": {
     "prebuild": "prisma generate",

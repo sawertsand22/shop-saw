@@ -10,7 +10,7 @@ export const getTshirtDetails = (
   selectedIngredients: Set<number>,
 ) => {
   const totalPrice = calcTotalTshirtPrice(type, size, items, ingredients, selectedIngredients);
-  const textDetaills = `${size} см, ${mapTshirtType[type]} пицца`;
+  const textDetaills = `${size} , ${mapTshirtType[type]} футболка`;
 
   return { totalPrice, textDetaills };
 };

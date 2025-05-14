@@ -230,7 +230,7 @@ export const DesignEditor: React.FC = () => {
           </Select>
         </div>
         <div className="flex-1">
-          <label className="block text-sm font-medium mb-1">Тип ткани</label>
+          <label className="block text-sm font-medium mb-1">Футболка</label>
           <Select value={tshirtType.toString()} onValueChange={(value) => setTshirtType(Number(value))}>
             <SelectTrigger>
               <SelectValue placeholder="Выберите тип" />
