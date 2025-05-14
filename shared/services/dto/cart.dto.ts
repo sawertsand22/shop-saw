@@ -19,5 +19,5 @@ export interface CreateCartItemValues {
   price?: number; 
 
    size?: number;        // Добавляем размер
-  pizzaType?: number; 
+  tshirtType?: number; 
 }

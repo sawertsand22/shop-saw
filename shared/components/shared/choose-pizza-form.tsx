@@ -10,7 +10,7 @@ import { GroupVariants } from './group-variants';
 import { TshirtSize, TshirtType, tshirtTypes } from '@/shared/constants/tshirt';
 import { IngredientItem } from './ingredient-item';
 import { cn } from '@/shared/lib/utils';
-import { getPizzaDetails } from '@/shared/lib';
+import { getTshirtDetails } from '@/shared/lib';
 import { useTshirtOptions } from '@/shared/hooks';
 
 interface Props {
@@ -46,7 +46,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     addIngredient,
   } = useTshirtOptions(items);
 
-  const { totalPrice, textDetaills } = getPizzaDetails(
+  const { totalPrice, textDetaills } = getTshirtDetails(
     type,
     size,
     items,

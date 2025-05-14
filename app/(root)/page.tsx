@@ -8,12 +8,12 @@ import {
   DesignEditor,
 } from '@/shared/components/shared';
 import { Suspense } from 'react';
-import { GetSearchParams, findPizzas } from '@/shared/lib/find-pizzas';
+import { GetSearchParams, findTshirts } from '@/shared/lib/find-tshirts';
 
  
 
 export default async function Home({ searchParams }: { searchParams: GetSearchParams }) {
-  const categories = await findPizzas(searchParams);
+  const categories = await findTshirts(searchParams);
 
   return (
     <>
