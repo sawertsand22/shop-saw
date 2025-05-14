@@ -2,7 +2,7 @@ import React from 'react';
 import { WhiteBlock } from '../white-block';
 import { CheckoutItem } from '../checkout-item';
 import { getCartItemDetails } from '@/shared/lib';
-import { PizzaSize, PizzaType } from '@/shared/constants/tshirt';
+import { TshirtSize, TshirtType } from '@/shared/constants/tshirt';
 import { CartStateItem } from '@/shared/lib/get-cart-details';
 import { CheckoutItemSkeleton } from '../checkout-item-skeleton';
 
@@ -33,8 +33,8 @@ export const CheckoutCart: React.FC<Props> = ({
                 imageUrl={item.imageUrl}
                 details={getCartItemDetails(
                   item.ingredients,
-                  item.pizzaType as PizzaType,
-                  item.pizzaSize as PizzaSize,
+                  item.pizzaType as TshirtType,
+                  item.pizzaSize as TshirtSize,
                 )}
                 name={item.name}
                 price={item.price}
