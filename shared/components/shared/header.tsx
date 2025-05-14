@@ -70,16 +70,16 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
           <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
 
           <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
-
-          {hasCart && <CartButton />}
-
-          <Button variant="secondary" className="text-base font-bold"
+<Button variant="secondary" className="text-base font-bold"
           onClick={(e) => {
     e.preventDefault(); // чтобы не сработал <Link>
     router.push('/design-editor');
                            }}>
             Добавить
   </Button>
+          {hasCart && <CartButton />}
+
+          
         </div>
 
         
