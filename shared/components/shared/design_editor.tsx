@@ -12,7 +12,7 @@ import { useCartStore } from '@/shared/store/cart';
 import toast from 'react-hot-toast';
 
 // ❗ Используем тот же список размеров и типов, что и для пиццы
-import { pizzaSizes as tshirtSizes, pizzaTypes as tshirtTypes } from '@/shared/constants/pizza';
+import { tshirtSizes as tshirtSizes, tshirtTypes as tshirtTypes } from '@/shared/constants/tshirt';
 
 export const DesignEditor: React.FC = () => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);

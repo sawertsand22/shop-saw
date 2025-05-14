@@ -7,11 +7,11 @@ import { PizzaImage } from './pizza-image';
 import { Title } from './title';
 import { Button } from '../ui';
 import { GroupVariants } from './group-variants';
-import { PizzaSize, PizzaType, pizzaTypes } from '@/shared/constants/pizza';
+import { TshirtSize, TshirtType, tshirtTypes } from '@/shared/constants/tshirt';
 import { IngredientItem } from './ingredient-item';
 import { cn } from '@/shared/lib/utils';
 import { getPizzaDetails } from '@/shared/lib';
-import { usePizzaOptions } from '@/shared/hooks';
+import { useTshirtOptions } from '@/shared/hooks';
 
 interface Props {
   imageUrl: string;
@@ -44,7 +44,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     setSize,
     setType,
     addIngredient,
-  } = usePizzaOptions(items);
+  } = useTshirtOptions(items);
 
   const { totalPrice, textDetaills } = getPizzaDetails(
     type,
@@ -73,13 +73,13 @@ export const ChoosePizzaForm: React.FC<Props> = ({
           <GroupVariants
             items={availableSizes}
             value={String(size)}
-            onClick={(value) => setSize(Number(value) as PizzaSize)}
+            onClick={(value) => setSize(Number(value) as TshirtSize)}
           />
 
           <GroupVariants
-            items={pizzaTypes}
+            items={tshirtTypes}
             value={String(type)}
-            onClick={(value) => setType(Number(value) as PizzaType)}
+            onClick={(value) => setType(Number(value) as TshirtType)}
           />
         </div>
 

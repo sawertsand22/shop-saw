@@ -20,7 +20,7 @@ export interface CartState {
   addCartItem: (values: CreateCartItemValues) => Promise<void>;
 
   /* Запрос на добавление кастомного дизайна в корзину */
-  addCustomDesignItem: (customDesignUrl: string, price?: number, pizzaSizes?: number, pizzaType?: number) => Promise<void>;
+  addCustomDesignItem: (customDesignUrl: string, price?: number, tshirtSizes?: number, tshirtType?: number) => Promise<void>;
 
   /* Запрос на удаление товара из корзины */
   removeCartItem: (id: number) => Promise<void>;
@@ -95,10 +95,10 @@ export const useCartStore = create<CartState>((set, get) => ({
   // В shared/store/cart.ts
 // shared/store/cart.ts
 
-addCustomDesignItem: async (customDesignUrl: string, price = 1500, size?: number, pizzaType?: number) => {
+addCustomDesignItem: async (customDesignUrl: string, price = 1500, size?: number, tshirtType?: number) => {
   try {
     set({ loading: true, error: false });
-    const data = await Api.cart.addCartItem({ customDesignUrl, price, size, pizzaType });
+    const data = await Api.cart.addCartItem({ customDesignUrl, price, size, tshirtType });
     set(getCartDetails(data));
   } catch (error) {
     console.error('[addCustomDesignItem]', error);

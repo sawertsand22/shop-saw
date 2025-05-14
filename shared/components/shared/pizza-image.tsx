@@ -4,7 +4,7 @@ import React from 'react';
 interface Props {
   className?: string;
   imageUrl: string;
-  size: 20 | 30 | 40;
+  size: 44 | 46 | 48 | 50 | 52 | 54 | 58;
 }
 
 export const PizzaImage: React.FC<Props> = ({ imageUrl, size, className }) => {
@@ -14,9 +14,9 @@ export const PizzaImage: React.FC<Props> = ({ imageUrl, size, className }) => {
         src={imageUrl}
         alt="Logo"
         className={cn('relative left-2 top-2 transition-all z-10 duration-300', {
-          'w-[300px] h-[300px]': size === 20,
-          'w-[400px] h-[400px]': size === 30,
-          'w-[500px] h-[500px]': size === 40,
+          'w-[300px] h-[300px]': size === 44,
+          'w-[400px] h-[400px]': size === 46,
+          'w-[500px] h-[500px]': size === 48,
         })}
       />
 
