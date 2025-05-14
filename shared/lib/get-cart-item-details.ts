@@ -3,14 +3,14 @@ import { CartStateItem } from './get-cart-details';
 
 export const getCartItemDetails = (
   ingredients: CartStateItem['ingredients'],
-  pizzaType?: TshirtType,
-  pizzaSize?: TshirtSize,
+  tshirtType?: TshirtType,
+  tshirtSize?: TshirtSize,
 ): string => {
   const details = [];
 
-  if (pizzaSize && pizzaType) {
-    const typeName = mapTshirtType[pizzaType];
-    details.push(`${typeName} ${pizzaSize} см`);
+  if (tshirtSize && tshirtType) {
+    const typeName = mapTshirtType[tshirtType];
+    details.push(`${typeName} ${tshirtSize} см`);
   }
 
   if (ingredients) {

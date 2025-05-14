@@ -4,7 +4,7 @@ export interface GetSearchParams {
   query?: string;
   sortBy?: string;
   sizes?: string;
-  pizzaTypes?: string;
+  tshirtTypes?: string;
   ingredients?: string;
   priceFrom?: string;
   priceTo?: string;
@@ -15,7 +15,7 @@ const DEFAULT_MAX_PRICE = 10000;
 
 export const findTshirts = async (params: GetSearchParams) => {
   const sizes = params.sizes?.split(',').map(Number);
-  const pizzaTypes = params.pizzaTypes?.split(',').map(Number);
+  const tshirtTypes = params.tshirtTypes?.split(',').map(Number);
   const ingredientsIdArr = params.ingredients?.split(',').map(Number);
 
   const minPrice = Number(params.priceFrom) || DEFAULT_MIN_PRICE;
@@ -53,8 +53,8 @@ export const findTshirts = async (params: GetSearchParams) => {
               size: {
                 in: sizes,
               },
-              pizzaType: {
-                in: pizzaTypes,
+              tshirtType: {
+                in: tshirtTypes,
               },
               price: {
                 gte: minPrice, // >=

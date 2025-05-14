@@ -60,7 +60,7 @@ model ProductItem {
 
     price     Int
     size      Int?
-    pizzaType Int?
+    tshirtType Int?
 
     customImageUrl String? // Поле для хранения изображения кастомного дизайна
 

@@ -20,7 +20,7 @@ export const calcTotalTshirtPrice = (
   selectedIngredients: Set<number>,
 ) => {
   const tshirtPrice =
-    items.find((item) => item.pizzaType === type && item.size === size)?.price || 0;
+    items.find((item) => item.tshirtType === type && item.size === size)?.price || 0;
 
   const totalIngredientsPrice = ingredients
     .filter((ingredient) => selectedIngredients.has(ingredient.id))

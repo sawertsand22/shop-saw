@@ -32,10 +32,10 @@ export const Filters: React.FC<Props> = ({ className }) => {
       {/* Верхние чекбоксы */}
       <CheckboxFiltersGroup
         title="Тип теста"
-        name="pizzaTypes"
+        name="tshirtTypes"
         className="mb-5"
         onClickCheckbox={filters.setPizzaTypes}
-        selected={filters.pizzaTypes}
+        selected={filters.tshirtTypes}
         items={[
           { text: 'Тонкое', value: '1' },
           { text: 'Традиционное', value: '2' },

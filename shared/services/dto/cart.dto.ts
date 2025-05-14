@@ -3,6 +3,7 @@ import { Cart, CartItem, Ingredient, Product, ProductItem } from '@prisma/client
 export type CartItemDTO = CartItem & {
   productItem: ProductItem & {
     product: Product;
+   // tshirtType: number | null;
   };
   ingredients: Ingredient[];
 };

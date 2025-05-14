@@ -8,14 +8,14 @@ interface PriceProps {
 }
 
 interface QueryFilters extends PriceProps {
-  pizzaTypes: string;
+  tshirtTypes: string;
   sizes: string;
   ingredients: string;
 }
 
 export interface Filters {
   sizes: Set<string>;
-  pizzaTypes: Set<string>;
+  tshirtTypes: Set<string>;
   selectedIngredients: Set<string>;
   prices: PriceProps;
 }
@@ -38,9 +38,9 @@ export const useFilters = (): ReturnProps => {
     new Set<string>(searchParams.has('sizes') ? searchParams.get('sizes')?.split(',') : []),
   );
 
-  const [pizzaTypes, { toggle: togglePizzaTypes }] = useSet(
+  const [tshirtTypes, { toggle: togglePizzaTypes }] = useSet(
     new Set<string>(
-      searchParams.has('pizzaTypes') ? searchParams.get('pizzaTypes')?.split(',') : [],
+      searchParams.has('tshirtTypes') ? searchParams.get('tshirtTypes')?.split(',') : [],
     ),
   );
 
@@ -59,7 +59,7 @@ export const useFilters = (): ReturnProps => {
   return React.useMemo(
     () => ({
       sizes,
-      pizzaTypes,
+      tshirtTypes,
       selectedIngredients,
       prices,
       setPrices: updatePrice,
@@ -67,6 +67,6 @@ export const useFilters = (): ReturnProps => {
       setSizes: toggleSizes,
       setSelectedIngredients: toggleIngredients,
     }),
-    [sizes, pizzaTypes, selectedIngredients, prices],
+    [sizes, tshirtTypes, selectedIngredients, prices],
   );
 };

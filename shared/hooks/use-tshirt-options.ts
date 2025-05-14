@@ -23,7 +23,7 @@ export const useTshirtOptions = (items: ProductItem[]): ReturnProps => {
 
   const availableSizes = getAvailableTshirtSizes(type, items);
 
-  const currentItemId = items.find((item) => item.pizzaType === type && item.size === size)?.id;
+  const currentItemId = items.find((item) => item.tshirtType === type && item.size === size)?.id;
 
   React.useEffect(() => {
     const isAvailableSize = availableSizes?.find(
