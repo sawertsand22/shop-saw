@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
           price: data.price || 1500,
           productId: customProduct.id,
           size: data.size ?? null,        // Учитываем размер
-          pizzaType: data.tshirtType ?? null, // Учитываем тип
+          tshirtType: data.tshirtType ?? null, // Учитываем тип
         },
       });
 
