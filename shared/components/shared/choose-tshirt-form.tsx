@@ -26,7 +26,7 @@ interface Props {
 /**
  * Форма выбора ПИЦЦЫ
  */
-export const ChoosePizzaForm: React.FC<Props> = ({
+export const ChooseTshirtForm: React.FC<Props> = ({
   name,
   items,
   imageUrl,

@@ -4,7 +4,7 @@ import { ProductWithRelations } from '@/@types/prisma';
 import { useCartStore } from '@/shared/store';
 import React from 'react';
 import toast from 'react-hot-toast';
-import { ChoosePizzaForm } from './choose-pizza-form';
+import { ChooseTshirtForm } from './choose-tshirt-form';
 import { ChooseProductForm } from './choose-product-form';
 
 interface Props {
@@ -16,7 +16,7 @@ export const ProductForm: React.FC<Props> = ({ product, onSubmit: _onSubmit }) =
   const [addCartItem, loading] = useCartStore((state) => [state.addCartItem, state.loading]);
 
   const firstItem = product.items[0];
-  const isPizzaForm = Boolean(firstItem.pizzaType);
+  const isTshirtForm = Boolean(firstItem.pizzaType);
 
   const onSubmit = async (productItemId?: number, ingredients?: number[]) => {
     try {
@@ -36,9 +36,9 @@ export const ProductForm: React.FC<Props> = ({ product, onSubmit: _onSubmit }) =
     }
   };
 
-  if (isPizzaForm) {
+  if (isTshirtForm) {
     return (
-      <ChoosePizzaForm
+      <ChooseTshirtForm
         imageUrl={product.imageUrl}
         name={product.name}
         ingredients={product.ingredients}
