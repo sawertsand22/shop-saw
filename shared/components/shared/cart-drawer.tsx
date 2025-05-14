@@ -17,7 +17,7 @@ import { Button } from '../ui';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { CartDrawerItem } from './cart-drawer-item';
 import { getCartItemDetails } from '@/shared/lib';
-import { PizzaSize, PizzaType } from '@/shared/constants/tshirt';
+import { TshirtSize, TshirtType } from '@/shared/constants/tshirt';
 import { Title } from './title';
 import { cn } from '@/shared/lib/utils';
 import { useCart } from '@/shared/hooks';
@@ -72,8 +72,8 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({ children }) => {
                       imageUrl={item.imageUrl}
                       details={getCartItemDetails(
                         item.ingredients,
-                        item.pizzaType as PizzaType,
-                        item.pizzaSize as PizzaSize,
+                        item.pizzaType as TshirtType,
+                        item.pizzaSize as TshirtSize,
                       )}
                       disabled={item.disabled}
                       name={item.name}
