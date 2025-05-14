@@ -96,13 +96,13 @@ export async function POST(req: NextRequest) {
 
 
 
-      // Создаем новый ProductItem с кастомным изображением
+     // Создаем новый ProductItem с кастомным изображением
       const productItem = await prisma.productItem.create({
         data: {
-          price: data.price || 1500, // Цена за кастомный дизайн
+          price: data.price || 1500,
           productId: customProduct.id,
-          size: null,
-          pizzaType: null,
+          size: data.size ?? null,        // Учитываем размер
+          pizzaType: data.pizzaType ?? null, // Учитываем тип
         },
       });
 

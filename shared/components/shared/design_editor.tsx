@@ -2,12 +2,17 @@
 
 import React, { useState, useRef } from 'react';
 import { Button } from '@/shared/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/shared/components/ui/select';
+import { Input } from '@/shared/components/ui/input';
 import NextImage from 'next/image';
 import { RotateCcw, RotateCw, ZoomIn, ZoomOut, X, ImageIcon, ShoppingCart } from 'lucide-react';
 import { InferenceClient } from '@huggingface/inference';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/shared/store/cart';
 import toast from 'react-hot-toast';
+
+// ❗ Используем тот же список размеров и типов, что и для пиццы
+import { pizzaSizes as tshirtSizes, pizzaTypes as tshirtTypes } from '@/shared/constants/pizza';
 
 export const DesignEditor: React.FC = () => {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
@@ -20,6 +25,9 @@ export const DesignEditor: React.FC = () => {
   const router = useRouter();
 
   const [addCustomDesignItem, storeLoading] = useCartStore((s) => [s.addCustomDesignItem, s.loading]);
+
+  const [size, setSize] = useState<number>(() => Number(tshirtSizes[0]?.value ?? 30));
+  const [tshirtType, setTshirtType] = useState<number>(() => Number(tshirtTypes[0]?.value ?? 1));
 
   const modelOptions = [
     {
@@ -121,56 +129,46 @@ export const DesignEditor: React.FC = () => {
   };
 
   const renderToCanvas = async (): Promise<string | null> => {
-  if (!uploadedImage) return null;
+    if (!uploadedImage) return null;
 
-  const canvas = document.createElement('canvas');
-  canvas.width = 300;
-  canvas.height = 400;
-  const ctx = canvas.getContext('2d');
-  if (!ctx) return null;
+    const canvas = document.createElement('canvas');
+    canvas.width = 300;
+    canvas.height = 400;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return null;
 
-  const tshirt = await loadImage('/assets/images/tshirt-base.png');
-  const design = await loadImage(uploadedImage);
+    const tshirt = await loadImage('/assets/images/tshirt-base.png');
+    const design = await loadImage(uploadedImage);
 
-  // Фон
-  ctx.drawImage(tshirt, 0, 0, 300, 400);
+    ctx.drawImage(tshirt, 0, 0, 300, 400);
 
-  // Печать дизайна
-  ctx.save();
-  ctx.translate(150 + position.x, 200 + position.y);
-  ctx.rotate((rotation * Math.PI) / 180);
-  ctx.scale(scale, scale);
+    ctx.save();
+    ctx.translate(150 + position.x, 200 + position.y);
+    ctx.rotate((rotation * Math.PI) / 180);
+    ctx.scale(scale, scale);
 
-  const VISUAL_WIDTH = 150;
-  const VISUAL_HEIGHT = 150;
+    const VISUAL_WIDTH = 150;
+    const VISUAL_HEIGHT = 150;
 
-  ctx.globalAlpha = 0.75; // прозрачность
-  //ctx.globalCompositeOperation = 'multiply'; // "впечатывание"
-  ctx.drawImage(design, -VISUAL_WIDTH / 2, -VISUAL_HEIGHT / 2, VISUAL_WIDTH, VISUAL_HEIGHT);
-  ctx.restore();
+    ctx.globalAlpha = 0.75;
+    ctx.drawImage(design, -VISUAL_WIDTH / 2, -VISUAL_HEIGHT / 2, VISUAL_WIDTH, VISUAL_HEIGHT);
+    ctx.restore();
 
-  // Восстановить обычный режим
-  ctx.globalAlpha = 1;
-  ctx.globalCompositeOperation = 'source-over';
+    const texture = await loadImage('/assets/images/fabric-texture.png');
+    ctx.globalAlpha = 0.3;
+    ctx.globalCompositeOperation = 'overlay';
+    ctx.drawImage(texture, 0, 0, 300, 400);
 
-  // [необязательно] Текстура ткани сверху
-  const texture = await loadImage('/assets/images/fabric-texture.png');
-  ctx.globalAlpha = 0.3;
-  ctx.globalCompositeOperation = 'overlay';
-  ctx.drawImage(texture, 0, 0, 300, 400);
-
-  return canvas.toDataURL('image/png');
-};
-
-
+    return canvas.toDataURL('image/png');
+  };
 
   const addToCart = async () => {
     const image = await renderToCanvas();
     if (!image) return toast.error('Не удалось собрать изображение');
 
     try {
-      await addCustomDesignItem(image, 1500);
-      toast.success('Дизайн добавлен в корзину');
+      await addCustomDesignItem(image, 1500, size, tshirtType);
+      toast.success('Футболка с дизайном добавлена в корзину');
       router.push('/cart');
     } catch (err) {
       console.error('Ошибка при добавлении:', err);
@@ -179,8 +177,7 @@ export const DesignEditor: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col items-center mt-10">
-      {/* Preview block */}
+    <div className="flex flex-col items-center mt-10 gap-4">
       <div className="relative w-[300px] h-[400px] bg-neutral-100 border rounded-md overflow-hidden">
         <NextImage src="/assets/images/tshirt-base.png" alt="T-Shirt" width={300} height={400} />
         <div className="absolute inset-0">
@@ -201,46 +198,81 @@ export const DesignEditor: React.FC = () => {
         </div>
       </div>
 
-      {/* Upload / Reset / Add */}
       <input ref={inputRef} type="file" className="hidden" accept="image/*" onChange={handleImageUpload} />
 
-      <div className="mt-4 flex gap-2">
+      <div className="flex gap-2">
         <Button variant="outline" onClick={() => inputRef.current?.click()}>
           Загрузить
         </Button>
         <Button variant="outline" onClick={resetEditor}>
           Очистить <X className="ml-2 h-4 w-4" />
         </Button>
-        <Button variant="outline" onClick={addToCart} disabled={!uploadedImage || storeLoading}>
-          {loading ? 'Добавление...' : 'Добавить в корзину'} <ShoppingCart className="ml-2 h-4 w-4" />
+        <Button onClick={addToCart} disabled={!uploadedImage || storeLoading}>
+          {storeLoading ? 'Добавление...' : 'Добавить в корзину'} <ShoppingCart className="ml-2 h-4 w-4" />
         </Button>
       </div>
 
-      {/* Model selector */}
-      <div className="mt-4 flex gap-2 items-center">
-        <label className="text-sm font-medium">Модель:</label>
-        <select
-          className="border px-3 py-2 rounded"
+      {/* Выбор размера и типа футболки */}
+      <div className="flex gap-4 w-full max-w-md">
+        <div className="flex-1">
+          <label className="block text-sm font-medium mb-1">Размер</label>
+          <Select value={size.toString()} onValueChange={(value) => setSize(Number(value))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Выберите размер" />
+            </SelectTrigger>
+            <SelectContent>
+              {tshirtSizes.map((size) => (
+                <SelectItem key={size.value} value={size.value.toString()}>
+                  {size.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+        <div className="flex-1">
+          <label className="block text-sm font-medium mb-1">Тип ткани</label>
+          <Select value={tshirtType.toString()} onValueChange={(value) => setTshirtType(Number(value))}>
+            <SelectTrigger>
+              <SelectValue placeholder="Выберите тип" />
+            </SelectTrigger>
+            <SelectContent>
+              {tshirtTypes.map((type) => (
+                <SelectItem key={type.value} value={type.value.toString()}>
+                  {type.name}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      </div>
+
+      {/* Выбор модели и промпт */}
+      <div className="w-full max-w-md">
+        <label className="block text-sm font-medium mb-1">Модель генерации</label>
+        <Select
           value={selectedModel.model}
-          onChange={(e) => {
-            const found = modelOptions.find((m) => m.model === e.target.value);
+          onValueChange={(value) => {
+            const found = modelOptions.find((m) => m.model === value);
             if (found) setSelectedModel(found);
           }}
         >
-          {modelOptions.map((option) => (
-            <option key={option.model} value={option.model}>
-              {option.label}
-            </option>
-          ))}
-        </select>
+          <SelectTrigger>
+            <SelectValue placeholder="Выберите модель" />
+          </SelectTrigger>
+          <SelectContent>
+            {modelOptions.map((option) => (
+              <SelectItem key={option.model} value={option.model}>
+                {option.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
 
-      {/* Prompt / Generate */}
-      <div className="mt-4 flex gap-2">
-        <input
+      <div className="flex gap-2 w-full max-w-md">
+        <Input
           type="text"
-          className="border rounded px-3 py-2 w-[300px]"
-          placeholder="Введите prompt"
+          placeholder="Введите prompt для генерации"
           value={prompt}
           onChange={(e) => setPrompt(e.target.value)}
         />
@@ -249,20 +281,19 @@ export const DesignEditor: React.FC = () => {
         </Button>
       </div>
 
-      {/* Rotate / Zoom */}
       {uploadedImage && (
-        <div className="mt-4 flex gap-2">
-          <Button variant="outline" onClick={() => rotateImage('left')}>
-            Влево <RotateCcw className="ml-2 h-4 w-4" />
+        <div className="flex gap-2">
+          <Button variant="outline" size="icon" onClick={() => rotateImage('left')}>
+            <RotateCcw className="h-4 w-4" />
           </Button>
-          <Button variant="outline" onClick={() => rotateImage('right')}>
-            Вправо <RotateCw className="ml-2 h-4 w-4" />
+          <Button variant="outline" size="icon" onClick={() => rotateImage('right')}>
+            <RotateCw className="h-4 w-4" />
           </Button>
-          <Button variant="outline" onClick={() => zoomImage('in')}>
-            + <ZoomIn className="ml-2 h-4 w-4" />
+          <Button variant="outline" size="icon" onClick={() => zoomImage('in')}>
+            <ZoomIn className="h-4 w-4" />
           </Button>
-          <Button variant="outline" onClick={() => zoomImage('out')}>
-            – <ZoomOut className="ml-2 h-4 w-4" />
+          <Button variant="outline" size="icon" onClick={() => zoomImage('out')}>
+            <ZoomOut className="h-4 w-4" />
           </Button>
         </div>
       )}

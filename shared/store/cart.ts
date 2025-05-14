@@ -20,7 +20,7 @@ export interface CartState {
   addCartItem: (values: CreateCartItemValues) => Promise<void>;
 
   /* Запрос на добавление кастомного дизайна в корзину */
-  addCustomDesignItem: (customDesignUrl: string, price?: number) => Promise<void>;
+  addCustomDesignItem: (customDesignUrl: string, price?: number, pizzaSizes?: number, pizzaType?: number) => Promise<void>;
 
   /* Запрос на удаление товара из корзины */
   removeCartItem: (id: number) => Promise<void>;
@@ -92,18 +92,24 @@ export const useCartStore = create<CartState>((set, get) => ({
   },
 
 
-  addCustomDesignItem: async (customDesignUrl: string, price = 1500) => {
-    try {
-      set({ loading: true, error: false });
-      const data = await Api.cart.addCartItem({ customDesignUrl, price });
-      set(getCartDetails(data));
-    } catch (error) {
-      console.error('[addCustomDesignItem]', error);
-      set({ error: true });
-    } finally {
-      set({ loading: false });
-    }
-  },
+  // В shared/store/cart.ts
+// shared/store/cart.ts
+
+addCustomDesignItem: async (customDesignUrl: string, price = 1500, size?: number, pizzaType?: number) => {
+  try {
+    set({ loading: true, error: false });
+    const data = await Api.cart.addCartItem({ customDesignUrl, price, size, pizzaType });
+    set(getCartDetails(data));
+  } catch (error) {
+    console.error('[addCustomDesignItem]', error);
+    set({ error: true });
+  } finally {
+    set({ loading: false });
+  }
+},
+
+
+
 //addCustomDesignItem: async (customDesignUrl: string, price = 777) => {
 //     try {
 //       set({ loading: true, error: false });
