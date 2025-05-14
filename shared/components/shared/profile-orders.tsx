@@ -56,13 +56,12 @@ export const ProfileOrders: React.FC<Props> = ({ orders }) => {
                     parsedItems.map((item: any, index) => (
                       <div key={index} className="flex items-start space-x-4">
                         <div className="w-20 h-20 relative">
-                          <div className="relative h-full w-full">
-  <img
-    src={item.productItem?.product?.imageUrl || '/placeholder-image.png'}
-    alt={item.productItem?.product?.name || 'Товар'}
-    className="rounded-md object-cover h-full w-full"
-  />
-</div>
+                          <Image
+  src={item.productItem?.product?.imageUrl || '/placeholder-image.png'}
+  alt={item.productItem?.product?.name || 'Товар'}
+  fill
+  className="rounded-md object-cover"
+/>
                         </div>
                         <div className="flex-1">
                           <p className="font-semibold">
