@@ -29,6 +29,7 @@ export { InfoBlock } from './info-block';
 export { ProfileForm } from './profile-form';
 export { Stories } from './stories';
 export {DesignEditor} from './design_editor'
+export {ProfileOrders} from './profile-orders'
 
 export * from './email-temapltes';
 export * from './checkout';
