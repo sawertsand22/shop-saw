@@ -116,7 +116,8 @@ export const DesignEditor: React.FC = () => {
     const result = JSON.parse(text);
 
     if (result.error_code === 0 && Array.isArray(result.images)) {
-      const imgRes = await fetch(result.images[0]);
+      const proxyUrl = `/api/image-proxy?url=${encodeURIComponent(result.images[0])}`;
+const imgRes = await fetch(proxyUrl);
 const blob = await imgRes.blob();
 const localUrl = URL.createObjectURL(blob);
 setUploadedImage(localUrl);
