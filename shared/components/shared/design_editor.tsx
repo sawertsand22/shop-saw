@@ -116,7 +116,11 @@ export const DesignEditor: React.FC = () => {
     const result = JSON.parse(text);
 
     if (result.error_code === 0 && Array.isArray(result.images)) {
-      setUploadedImage(result.images[0]);
+      const imgRes = await fetch(result.images[0]);
+const blob = await imgRes.blob();
+const localUrl = URL.createObjectURL(blob);
+setUploadedImage(localUrl);
+
     } else {
       throw new Error(result.message || 'Ошибка генерации');
     }
