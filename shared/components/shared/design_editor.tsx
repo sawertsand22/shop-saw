@@ -90,9 +90,7 @@ export const DesignEditor: React.FC = () => {
     const formData = new FormData();
     const token = process.env.NEXT_PUBLIC_SINKIN_API_KEY as string;
 
-    console.log('📦 prompt:', prompt);
-    console.log('📦 model_id:', selectedModel.model);
-    console.log('📦 access_token (должен быть непустой):', token);
+    
 
     formData.append('access_token', token);
     formData.append('model_id', selectedModel.model);
@@ -111,7 +109,7 @@ export const DesignEditor: React.FC = () => {
     });
 
     const text = await response.text();
-    console.log('📥 Ответ от API:', text); // 🔍 Показывает весь текст
+    
 
     const result = JSON.parse(text);
 
