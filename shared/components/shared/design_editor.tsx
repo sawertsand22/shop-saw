@@ -6,12 +6,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/shared/components/ui/input';
 import NextImage from 'next/image';
 import { RotateCcw, RotateCw, ZoomIn, ZoomOut, X, ImageIcon, ShoppingCart } from 'lucide-react';
-import { InferenceClient } from '@huggingface/inference';
 import { useRouter } from 'next/navigation';
 import { useCartStore } from '@/shared/store/cart';
 import toast from 'react-hot-toast';
 
-// ❗ Используем тот же список размеров и типов, что и для пиццы
 import { tshirtSizes as tshirtSizes, tshirtTypes as tshirtTypes } from '@/shared/constants/tshirt';
 
 export const DesignEditor: React.FC = () => {
@@ -30,16 +28,10 @@ export const DesignEditor: React.FC = () => {
   const [tshirtType, setTshirtType] = useState<number>(() => Number(tshirtTypes[0]?.value ?? 1));
 
   const modelOptions = [
-    {
-      label: 'FLUX-1 (HuggingFace)',
-      provider: 'hf-inference',
-      model: 'black-forest-labs/FLUX.1-dev',
-    },
-    {
-      label: 'HiDream I1 (Fal AI)',
-      provider: 'hf-inference',
-      model: 'HiDream-ai/HiDream-I1-Full',
-    },
+    { label: 't-shirt diffusion', model: 'RREKVLd' },
+    { label: 'Reliberate', model: 'meLy25wO' },
+    { label: 'Landscapes mix', model: 'X9zNVO1' },
+    { label: 'Unvail AI 3DKX', model: 'mG22KJg' },
   ];
   const [selectedModel, setSelectedModel] = useState(modelOptions[0]);
 
@@ -91,32 +83,51 @@ export const DesignEditor: React.FC = () => {
   };
 
   const generateImageFromPrompt = async () => {
-    if (!prompt.trim()) return;
-    setLoading(true);
+  if (!prompt.trim()) return;
+  setLoading(true);
 
-    try {
-      const client = new InferenceClient(process.env.NEXT_PUBLIC_HUGGINGFACE_API_KEY as string);
-      const response = await client.textToImage({
-        provider: selectedModel.provider as any,
-        model: selectedModel.model,
-        inputs: prompt,
-        parameters: { num_inference_steps: 5 },
-      });
+  try {
+    const formData = new FormData();
+    const token = process.env.NEXT_PUBLIC_SINKIN_API_KEY as string;
 
-      if (response && typeof response === 'object' && 'size' in response) {
-        const blob = response as Blob;
-        const imageUrl = URL.createObjectURL(blob);
-        setUploadedImage(imageUrl);
-      } else {
-        throw new Error('Ответ от API не является изображением');
-      }
-    } catch (err) {
-      console.error('Ошибка генерации:', err);
-      toast.error('Ошибка генерации изображения');
-    } finally {
-      setLoading(false);
+    console.log('📦 prompt:', prompt);
+    console.log('📦 model_id:', selectedModel.model);
+    console.log('📦 access_token (должен быть непустой):', token);
+
+    formData.append('access_token', token);
+    formData.append('model_id', selectedModel.model);
+    formData.append('prompt', prompt);
+    formData.append('num_images', '1');
+    formData.append('width', '512');
+    formData.append('height', '512');
+    formData.append('scale', '7');
+    formData.append('steps', '20');
+    formData.append('use_default_neg', 'true');
+    formData.append('scheduler', 'DPMSolverMultistep');
+
+    const response = await fetch('https://sinkin.ai/api/inference', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const text = await response.text();
+    console.log('📥 Ответ от API:', text); // 🔍 Показывает весь текст
+
+    const result = JSON.parse(text);
+
+    if (result.error_code === 0 && Array.isArray(result.images)) {
+      setUploadedImage(result.images[0]);
+    } else {
+      throw new Error(result.message || 'Ошибка генерации');
     }
-  };
+  } catch (err) {
+    console.error('❌ Ошибка генерации:', err);
+    toast.error('Ошибка генерации изображения');
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const loadImage = (src: string): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
@@ -212,7 +223,6 @@ export const DesignEditor: React.FC = () => {
         </Button>
       </div>
 
-      {/* Выбор размера и типа футболки */}
       <div className="flex gap-4 w-full max-w-md">
         <div className="flex-1">
           <label className="block text-sm font-medium mb-1">Размер</label>
@@ -246,7 +256,6 @@ export const DesignEditor: React.FC = () => {
         </div>
       </div>
 
-      {/* Выбор модели и промпт */}
       <div className="w-full max-w-md">
         <label className="block text-sm font-medium mb-1">Модель генерации</label>
         <Select
