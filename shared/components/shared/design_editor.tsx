@@ -105,48 +105,64 @@ export const DesignEditor: React.FC = () => {
   };
 
   const generateImageFromPrompt = async () => {
-    if (!prompt.trim()) return;
-    setLoading(true);
-    try {
-      const formData = new FormData();
-      const token = process.env.NEXT_PUBLIC_SINKIN_API_KEY as string;
+  if (!prompt.trim()) return;
+  setLoading(true);
 
-      formData.append('access_token', token);
-      formData.append('model_id', selectedModel.model);
-      formData.append('prompt', prompt);
-      formData.append('num_images', '1');
-      formData.append('width', '512');
-      formData.append('height', '512');
-      formData.append('scale', '7');
-      formData.append('steps', '20');
-      formData.append('use_default_neg', 'true');
-      formData.append('scheduler', 'DPMSolverMultistep');
+  try {
+    const formData = new FormData();
+    const token = process.env.NEXT_PUBLIC_SINKIN_API_KEY;
 
-      const response = await fetch('https://sinkin.ai/api/inference', {
-        method: 'POST',
-        body: formData,
-      });
+    if (!token) throw new Error('API ключ не найден');
 
-      const result = await response.json();
+    formData.append('access_token', token);
+    formData.append('model_id', selectedModel.model);
+    formData.append('prompt', prompt);
+    formData.append('num_images', '1');
+    formData.append('width', '512');
+    formData.append('height', '512');
+    formData.append('scale', '7');
+    formData.append('steps', '20');
+    formData.append('use_default_neg', 'true');
+    formData.append('scheduler', 'DPMSolverMultistep');
 
-      if (result.error_code === 0 && Array.isArray(result.images)) {
-        const proxyUrl = `/api/image-proxy?url=${encodeURIComponent(result.images[0])}`;
-        const imgRes = await fetch(proxyUrl);
-        const blob = await imgRes.blob();
-        const localUrl = URL.createObjectURL(blob);
-        const id = crypto.randomUUID();
-        setUploadedImages((prev) => [...prev, { id, src: localUrl, x: 0, y: 0, scale: 1, rotation: 0 }]);
-        setActiveImageId(id);
-      } else {
-        throw new Error(result.message || 'Ошибка генерации');
-      }
-    } catch (err) {
-      console.error('❌ Ошибка генерации:', err);
-      toast.error('Ошибка генерации изображения');
-    } finally {
-      setLoading(false);
+    // Отправка на Sinkin
+    const response = await fetch('https://sinkin.ai/api/inference', {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+
+    if (result.error_code !== 0 || !Array.isArray(result.images)) {
+      throw new Error(result.message || 'Ошибка генерации');
     }
-  };
+
+    const imageUrl = result.images[0];
+
+    // Загрузка через твой прокси
+    const proxyUrl = `/api/image-proxy?url=${encodeURIComponent(imageUrl)}`;
+    const imgRes = await fetch(proxyUrl);
+    const blob = await imgRes.blob();
+    const localUrl = URL.createObjectURL(blob);
+
+    const id = crypto.randomUUID();
+    setUploadedImages((prev) => [...prev, {
+      id,
+      src: localUrl,
+      x: 0,
+      y: 0,
+      scale: 1,
+      rotation: 0,
+    }]);
+    setActiveImageId(id);
+  } catch (err) {
+    console.error('❌ Ошибка генерации:', err);
+    toast.error('Ошибка генерации изображения');
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const loadImage = (src: string): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
